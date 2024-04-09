@@ -1,6 +1,5 @@
 const countDownEle = document.getElementById("countdown-timer");
 const restCountDown = document.getElementById("countdown-rest");
-const restScreenResume = document.getElementById("restScreen-resume");
 const finalModelCheckBoxs = document.querySelectorAll(".checkbox");
 const finalResumeBtn = document.getElementById("final-resume");
 const finalModel = document.getElementById("finalModel");
@@ -10,9 +9,9 @@ const checkBox2 = document.getElementById("checkbox2");
 const checkBox3 = document.getElementById("checkbox3");
 
 // Time Settings
-let timeLimitInMinutes = 1;
+let timeLimitInMinutes = 0.1;
 let timeLimitInSeconds = timeLimitInMinutes * 60;
-let resTimeLimitInSeconds = 20;
+let resTimeLimitInSeconds = 2;
 
 // Checking Interval Variable
 let timerInterval;
@@ -40,9 +39,6 @@ function RestCountDownTimer() {
   restCountDown.innerHTML = `${minutes}:${seconds}`;
 
   if (resTimeLimitInSeconds === 0) {
-    restScreenResume.removeAttribute("disabled");
-    restScreenResume.style.cursor = "pointer";
-    changeBtnCss(restScreenResume);
     removeBtnCss(finalResumeBtn);
     restCountDown.textContent = "00:00";
     clearInterval(resTimerInterval);
@@ -69,10 +65,18 @@ function CountDownTimer() {
     restModel.style.display = "flex";
     countDownEle.textContent = "00:00";
     clearInterval(timerInterval);
-    resTimeLimitInSeconds = 20;
-    removeBtnCss(restScreenResume);
+    resTimeLimitInSeconds = 2;
     resTimerInterval = setInterval(RestCountDownTimer, 1000);
   }
+}
+
+// Stop Count Down Process
+function CountDownStop() {
+  timeLimitInSeconds = timeLimitInMinutes * 60;
+  clearInterval(timerInterval);
+  removeBtnCss(countDownEle);
+  countDownEle.textContent = "Eye saving mode";
+  localStorage.setItem("timer", false);
 }
 
 // Start Count Down Process
@@ -81,7 +85,10 @@ function CountDownStart() {
     timeLimitInSeconds = timeLimitInMinutes * 60;
     clearInterval(timerInterval);
     timerInterval = setInterval(CountDownTimer, 1000);
+    changeBtnCss(countDownEle);
+    localStorage.setItem("timer", true);
   } else {
+    localStorage.setItem("timer", true);
     timerInterval = setInterval(CountDownTimer, 1000);
     changeBtnCss(countDownEle);
   }
@@ -125,4 +132,11 @@ finalResumeBtn.addEventListener("click", function (event) {
 });
 
 // Start Eye Saving Mode
-countDownEle.addEventListener("click", CountDownStart);
+countDownEle.addEventListener("click", () => {
+  let isTimer = localStorage.getItem("timer");
+  if (isTimer === "true") {
+    CountDownStop();
+  } else {
+    CountDownStart();
+  }
+});

@@ -180,7 +180,7 @@ Global Model Css
     background-color: var(--model-container-clr);
     padding: 3rem;
     border: 1px solid var(--text-light-clr);
-    width: 50%;
+    width: 60%;
     border-radius: 1.2rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     animation-name: animateModel;
@@ -201,6 +201,22 @@ Global Model Css
   to {
     scale: 1;
     opacity: 1;
+  }
+}
+
+@media (width <= 1000px) {
+  .model {
+    & .modal-content {
+      width: 80%;
+    }
+  }
+}
+
+@media (width <= 800px) {
+  .model {
+    & .modal-content {
+      width: 98%;
+    }
   }
 }
 
@@ -228,6 +244,8 @@ FinalProccess Model Model Css
 .final-model {
   & .modal-content {
     text-align: center;
+    max-height: 98vh;
+    overflow: auto;
 
     & .grid {
       gap: 2rem;
@@ -263,6 +281,16 @@ FinalProccess Model Model Css
       width: 250px;
       padding: 1.8rem 3rem;
       cursor: not-allowed;
+    }
+  }
+}
+
+@media (width <= 768px) {
+  .final-model {
+    & .modal-content {
+      & .grid-three--cols {
+        grid-template-columns: 1fr;
+      }
     }
   }
 }

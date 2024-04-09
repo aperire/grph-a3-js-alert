@@ -9,9 +9,9 @@ const checkBox2 = document.getElementById("checkbox2");
 const checkBox3 = document.getElementById("checkbox3");
 
 // Time Settings
-let timeLimitInMinutes = 0.1;
+let timeLimitInMinutes = 1;
 let timeLimitInSeconds = timeLimitInMinutes * 60;
-let resTimeLimitInSeconds = 2;
+let resTimeLimitInSeconds = 20;
 
 // Checking Interval Variable
 let timerInterval;
@@ -65,7 +65,7 @@ function CountDownTimer() {
     restModel.style.display = "flex";
     countDownEle.textContent = "00:00";
     clearInterval(timerInterval);
-    resTimeLimitInSeconds = 2;
+    resTimeLimitInSeconds = 20;
     resTimerInterval = setInterval(RestCountDownTimer, 1000);
   }
 }

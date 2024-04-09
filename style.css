@@ -1,4 +1,268 @@
-button{
-    padding:1.5%;
+/* ======================================
+Theme Rule
+====================================== */
+
+:root {
+  --body-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  --text-light-clr: black;
+  --text-dark-clr: white;
+
+  /* color variable */
+
+  --green-clr: green;
+
+  /* model variable */
+  --model-bg: rgba(0, 0, 0, 0.4);
+  --model-container-clr: var(--text-dark-clr);
 }
 
+/* ======================================
+Base Rule
+====================================== */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--text-light-clr);
+  background: var(--body-bg);
+}
+
+html {
+  height: 100%;
+  width: 100%;
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+ul {
+  list-style-type: none;
+  width: 100%;
+}
+
+h2 {
+  font-size: 3rem;
+}
+
+p,
+a,
+li {
+  letter-spacing: 0.02rem;
+  font-size: 1.4rem;
+  line-height: 1.5;
+}
+
+:is(input, textarea, .input) {
+  display: inline-block;
+}
+
+button {
+  font-family: "Roboto Mono", monospace;
+}
+
+@media (width <= 768px) {
+  html {
+    font-size: 59.375%; /* 9.5px */
+  }
+  h1 {
+    font-size: 3rem;
+  }
+}
+
+@media (width <= 600px) {
+  html {
+    font-size: 59.375%; /* 9.5px */
+  }
+  h1 {
+    font-size: 2.8rem;
+  }
+}
+
+/* ======================================
+Layout Rule
+====================================== */
+
+.container {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 6rem var(--container-block-lg);
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-two--cols {
+  grid-template-columns: repeat(2, 1fr);
+}
+.grid-three--cols {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* ======================================
+Module Rules
+====================================== */
+
+.btn {
+  border: none;
+  outline: none;
+  color: var(--text-light-clr);
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 1.4rem;
+  font-weight: 600;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 5rem;
+  background-color: var(--text-dark-clr);
+  transition: all 0.3s;
+  -webkit-border-radius: 5rem;
+  -moz-border-radius: 5rem;
+  -ms-border-radius: 5rem;
+  -o-border-radius: 5rem;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+}
+
+/* ======================================
+State Rules
+====================================== */
+
+.btn:active {
+  scale: 0.94;
+}
+
+/* ======================================
+hero-section
+====================================== */
+
+.hero-section {
+  & .container {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+  }
+
+  & .btn {
+    width: 250px;
+    padding: 1.8rem 3rem;
+  }
+}
+
+/* ======================================
+Global Model Css
+====================================== */
+
+.model {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--model-bg);
+
+  & .modal-content {
+    position: relative;
+    background-color: var(--model-container-clr);
+    padding: 3rem;
+    border: 1px solid var(--text-light-clr);
+    width: 50%;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    animation-name: animateModel;
+    animation-duration: 0.4s;
+    animation-fill-mode: both;
+    -webkit-border-radius: 1.2rem;
+    -moz-border-radius: 1.2rem;
+    -ms-border-radius: 1.2rem;
+    -o-border-radius: 1.2rem;
+  }
+}
+
+@keyframes animateModel {
+  from {
+    scale: 0.2;
+    opacity: 0;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+/* ======================================
+restScreen Model Model Css
+====================================== */
+
+.restScreen-model {
+  & .modal-content {
+    text-align: center;
+    line-height: 2.5;
+
+    & .btn {
+      width: 250px;
+      padding: 1.8rem 3rem;
+      cursor: not-allowed;
+    }
+  }
+}
+
+/* ======================================
+FinalProccess Model Model Css
+====================================== */
+
+.final-model {
+  & .modal-content {
+    text-align: center;
+
+    & .grid {
+      gap: 2rem;
+    }
+
+    & .img-box {
+      padding: 1.5rem;
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px solid rgb(152, 152, 152);
+      border-radius: 1.2rem;
+      gap: 1rem;
+      flex-direction: column;
+      -webkit-border-radius: 1.2rem;
+      -moz-border-radius: 1.2rem;
+      -ms-border-radius: 1.2rem;
+      -o-border-radius: 1.2rem;
+
+      & img {
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
+      }
+      & input {
+        accent-color: var(--green-clr);
+      }
+    }
+
+    & .btn {
+      margin-top: 3rem;
+      width: 250px;
+      padding: 1.8rem 3rem;
+      cursor: not-allowed;
+    }
+  }
+}

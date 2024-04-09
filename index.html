@@ -1,15 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Javascript test</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <h2>Hey.</h2>
-    <button>Eye saving mode</button>
-    <div>Time left = <span id="timer">20:00</span></div>
-    <script src="script.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>GRAPH-A3</title>
+        <link rel="stylesheet" href="style.css" />
+
+        <!-- font links -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@400;500;600;700&display=swap"
+            rel="stylesheet" />
+
+        <script src="./script.js" defer></script>
+    </head>
+    <body>
+
+        <!-- Popup Model Start-->
+
+        <!-- restScreen-model-->
+        <div class="model restScreen-model" id="restModel">
+            <div class="modal-content">
+                <p>It's already been 20 minutes since you looked at this
+                    website! Have a 20 second of rest. Look further away from
+                    the screen.</p>
+                <h2 id="countdown-rest">00:20</h2>
+                <button class="btn" id="restScreen-resume">resume</button>
+            </div>
+        </div>
+
+        <!-- final-model-->
+        <div class="model final-model" id="finalModel">
+            <div class="modal-content">
+                <p>It's already been 20 minutes since you looked at this
+                    website! Have a 20 second of eye exercise.</p>
+                <div class="grid grid-three--cols">
+                    <div class="img-box">
+                        <img src="/images/img3.jpeg" alt="img1">
+                        <input type="checkbox" name="checkbox" id="checkbox1"
+                            class="checkbox">
+                    </div>
+                    <div class="img-box">
+                        <img src="/images/img2.jpeg" alt="img1">
+                        <input type="checkbox" name="checkbox" id="checkbox2"
+                            class="checkbox">
+                    </div>
+                    <div class="img-box">
+                        <img src="/images/img1.jpeg" alt="img1">
+                        <input type="checkbox" name="checkbox" id="checkbox3"
+                            class="checkbox">
+                    </div>
+                </div>
+                <button class="btn" id="final-resume" disabled>Resume</button>
+            </div>
+        </div>
+
+        <!-- Popup Model End -->
+
+        <!-- hero-section start -->
+
+        <main class="hero-section">
+            <div class="container">
+                <div class="eye-saving-mode">
+                    <button class="btn" id="countdown-timer">Eye saving mode</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- hero-section end -->
+
+    </body>
 </html>

@@ -1,85 +1,128 @@
-let buttonClicked = false;
-let timerRunning = false;
+const countDownEle = document.getElementById("countdown-timer");
+const restCountDown = document.getElementById("countdown-rest");
+const restScreenResume = document.getElementById("restScreen-resume");
+const finalModelCheckBoxs = document.querySelectorAll(".checkbox");
+const finalResumeBtn = document.getElementById("final-resume");
+const finalModel = document.getElementById("finalModel");
+const restModel = document.getElementById("restModel");
+const checkBox1 = document.getElementById("checkbox1");
+const checkBox2 = document.getElementById("checkbox2");
+const checkBox3 = document.getElementById("checkbox3");
 
-//need to connect the onbuttonclick function with timeoutfunction
-//need to have 20 second time out then 3 exercise check box 
-//indicate the timer for 20min on repeat and this sync well with the browser time 
-//add restart time button 
-//need to change the button work to countdown when clicked, and stop the timer when button clicked again
+// Time Settings
+let timeLimitInMinutes = 1;
+let timeLimitInSeconds = timeLimitInMinutes * 60;
+let resTimeLimitInSeconds = 20;
 
-function onButtonClick() {
-    buttonClicked = !buttonClicked;
-    if (buttonClicked) {
-        alert('Eye saving mode activated!');
-        button.style.background = '#9DC183'; 
-        startTimer();
-    } else {
-        alert('Eye saving mode deactivated!');
-        button.style.background = '';
-    }
-  }
-    const button = document.querySelector('button');
-    button.addEventListener('click', onButtonClick);
+// Checking Interval Variable
+let timerInterval;
+let resTimerInterval;
 
-  //used to make the button function when clicked and change colour 
-  //https://www.altcademy.com/blog/how-to-create-a-button-in-javascript/
-  //https://stackoverflow.com/questions/1819878/changing-button-color-programmatically
-  //https://www.c-sharpcorner.com/blogs/change-the-background-color-of-a-button-with-javascript1
-  //e-Button-Color-in-Javascript 
-
-function timeoutFunction() {
-    alert("It's time to take a break! Rest for 20 seconds.");
-
-    function countdown(secs) {
-        if (secs > 0) {
-            setTimeout(function() {
-                countdown(secs - 1);
-            }, 1000);
-        }
-    }
-    
-    setTimeout(timeoutFunction, 20 * 60 * 1000); // 20 minutes in milliseconds
+// Change Btn after actived
+function changeBtnCss(referance) {
+  referance.style.backgroundColor = "green";
+  referance.style.color = "white";
+}
+// Change Btn after actived
+function removeBtnCss(referance) {
+  referance.style.backgroundColor = "white";
+  referance.style.color = "black";
 }
 
-setTimeout(timeoutFunction, 20 * 60 * 1000);
+// Count Down Timer Runner
+function RestCountDownTimer() {
+  resTimeLimitInSeconds--;
+  let minutes = Math.floor(resTimeLimitInSeconds / 60);
+  let seconds = resTimeLimitInSeconds % 60;
 
-    // used to learn timeout function 
-    //https://www.w3schools.com/js/js_timing.asp 
-    //https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
-    //https://www.freecodecamp.org/news/javascript-wait-how-to-sleep-n-seconds-in-js-with-settimeout/
+  seconds = seconds < timeLimitInMinutes ? "0" + seconds : seconds;
 
-    
-    //https://stackoverflow.com/questions/1482555/alert-prompt-checkboxes
-    //https://jqueryui.com/dialog/ 
-    //https://stackoverflow.com/questions/11599666/get-the-value-of-checked-checkbox
+  restCountDown.innerHTML = `${minutes}:${seconds}`;
 
-
-var timeLimitInMinutes = 20;
-var timeLimitInSeconds = timeLimitInMinutes * 60;
-var timerElement = document.getElementById('timer');
-
-function startTimer() {
-  timeLimitInSeconds--;
-  var minutes = Math.floor(timeLimitInSeconds / 60);
-  var seconds = timeLimitInSeconds % 60;
-
-  if (timeLimitInSeconds < 0) {
-    timerElement.textContent = '00:00';
-    clearInterval(timerInterval);
+  if (resTimeLimitInSeconds === 0) {
+    restScreenResume.removeAttribute("disabled");
+    restScreenResume.style.cursor = "pointer";
+    changeBtnCss(restScreenResume);
+    removeBtnCss(finalResumeBtn);
+    restCountDown.textContent = "00:00";
+    clearInterval(resTimerInterval);
+    checkBox1.checked = false;
+    checkBox2.checked = false;
+    checkBox3.checked = false;
+    restModel.style.display = "none";
+    finalModel.style.display = "flex";
     return;
   }
-
-  if (minutes < 10) {
-    minutes = '0' + minutes;
-  }
-  if (seconds <10) {
-    seconds = '0' + seconds;
-  }
-
-  timerElement.textContent = minutes + ':' + seconds;
 }
 
-var timerInterval = setInterval(startTimer, 1000);
+// Count Down Timer Runner
+function CountDownTimer() {
+  timeLimitInSeconds--;
+  let minutes = Math.floor(timeLimitInSeconds / 60);
+  let seconds = timeLimitInSeconds % 60;
 
-//20 minute timer
-//https://codepen.io/luci/pen/EEavVR
+  seconds = seconds < timeLimitInMinutes ? "0" + seconds : seconds;
+
+  countDownEle.innerHTML = `Timeout - ${minutes}:${seconds}`;
+
+  if (timeLimitInSeconds === 0) {
+    restModel.style.display = "flex";
+    countDownEle.textContent = "00:00";
+    clearInterval(timerInterval);
+    resTimeLimitInSeconds = 20;
+    removeBtnCss(restScreenResume);
+    resTimerInterval = setInterval(RestCountDownTimer, 1000);
+  }
+}
+
+// Start Count Down Process
+function CountDownStart() {
+  if (timerInterval) {
+    timeLimitInSeconds = timeLimitInMinutes * 60;
+    clearInterval(timerInterval);
+    timerInterval = setInterval(CountDownTimer, 1000);
+  } else {
+    timerInterval = setInterval(CountDownTimer, 1000);
+    changeBtnCss(countDownEle);
+  }
+}
+
+function isCheckedAll() {
+  if (checkBox1.checked && checkBox2.checked && checkBox3.checked) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// validate checkboxs
+function validateCheckbox() {
+  let check = isCheckedAll();
+  if (check) {
+    changeBtnCss(finalResumeBtn);
+    finalResumeBtn.removeAttribute("disabled");
+    finalResumeBtn.style.cursor = "pointer";
+  } else {
+    removeBtnCss(finalResumeBtn);
+    finalResumeBtn.setAttribute("disabled");
+    finalResumeBtn.style.cursor = "not-allowed";
+  }
+}
+
+// checking checkbox is checked or not?
+finalModelCheckBoxs.forEach((input) => {
+  input.addEventListener("click", validateCheckbox);
+});
+
+finalResumeBtn.addEventListener("click", function (event) {
+  if (!event.target.disabled) {
+    let check = isCheckedAll();
+    if (check) {
+      finalModel.style.display = "none";
+      CountDownStart();
+    }
+  }
+});
+
+// Start Eye Saving Mode
+countDownEle.addEventListener("click", CountDownStart);

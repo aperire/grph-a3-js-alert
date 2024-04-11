@@ -9,7 +9,7 @@ const checkBox2 = document.getElementById("checkbox2");
 const checkBox3 = document.getElementById("checkbox3");
 
 // Time Settings
-let timeLimitInMinutes = 1;
+let timeLimitInMinutes = 0.1;
 let timeLimitInSeconds = timeLimitInMinutes * 60;
 let resTimeLimitInSeconds = 20;
 
@@ -126,7 +126,9 @@ finalResumeBtn.addEventListener("click", function (event) {
     let check = isCheckedAll();
     if (check) {
       finalModel.style.display = "none";
-      CountDownStart();
+      removeBtnCss(countDownEle);
+      countDownEle.textContent = "Eye saving mode";
+      localStorage.removeItem("timer");
     }
   }
 });
@@ -139,4 +141,8 @@ countDownEle.addEventListener("click", () => {
   } else {
     CountDownStart();
   }
+});
+
+window.addEventListener("DOMContentLoaded", function () {
+  localStorage.removeItem("timer");
 });
